@@ -1,1 +1,7 @@
 __pycache__/
+
+compressed_images/
+
+decompressed_images/
+
+huffman_codes/

@@ -58,11 +58,16 @@ except Exception as e:
     print(f"Error while writing decompressed image: {e}")
 
 
-print("Compression Ratio (CR):", len(image_bit_string) / len(compressed_image_bit_string))
-print("Original Image Size:", os.path.getsize(image_path), "bytes")
-print("Compressed Image Size:", os.path.getsize(compressed_path), "bytes")
-print("Decompressed Image Size:", os.path.getsize(decompressed_path), "bytes")
-print("Redundancy:", 1 - (1 / (len(image_bit_string) / len(compressed_image_bit_string))))
+original_image_size = os.path.getsize(image_path)
+compressed_image_size = os.path.getsize(compressed_path)
+decompressed_image_size = os.path.getsize(decompressed_path)
+cr = original_image_size / compressed_image_size
+
+print("Compression Ratio (CR):", cr, "bytes")
+print("Original Image Size:", original_image_size, "bytes")
+print("Compressed Image Size:", compressed_image_size, "bytes")
+print("Decompressed Image Size:", decompressed_image_size, "bytes")
+print("Redundancy:", 1 - (1 / cr))
 
 # Display the decompressed image
 decompressed_image = mpimg.imread(decompressed_path)
