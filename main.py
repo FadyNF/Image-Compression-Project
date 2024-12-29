@@ -4,15 +4,15 @@ import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import os
 
-file_directory_paths = {
+directory_paths = {
     'image_dir': './images/',
     'decompressed_dir': './decompressed_images/',
     'compressed_dir': './compressed_images/',
     'huffman_codes_dir': './huffman_codes/'
 }
 
-files = [file for file in os.listdir(file_directory_paths['image_dir']) 
-        if os.path.isfile(os.path.join(file_directory_paths['image_dir'], file))]
+files = [file for file in os.listdir(directory_paths['image_dir']) 
+        if os.path.isfile(os.path.join(directory_paths['image_dir'], file))]
 
 # Get the number of files in the directory
 num_files = len(files)
@@ -31,7 +31,7 @@ while (True):
 
 
 # Construct the path to the image file
-image_path = file_directory_paths['image_dir']+'Image' + " " + str(image_number) + '.jpg'
+image_path = directory_paths['image_dir']+'Image' + " " + str(image_number) + '.jpg'
 
 # Display the original image
 original_image = mpimg.imread(image_path)
@@ -44,14 +44,14 @@ plt.show()
 image_bit_string =fh.read_image_bit_string(image_path)
 
 # Compress the image bit string using Huffman coding
-compressed_image_bit_string = hf.compress(image_bit_string, image_number, file_directory_paths)
+compressed_image_bit_string = hf.compress(image_bit_string, image_number, directory_paths)
 
 # Construct the path for the compressed image file
-compressed_path = file_directory_paths['compressed_dir'] + 'compressed_image_' + str(image_number) + '.bin'
+compressed_path = directory_paths['compressed_dir'] + 'compressed_image_' + str(image_number) + '.bin'
 
 # Ensure the compressed images directory exists
-if not os.path.exists(file_directory_paths['compressed_dir']):
-    os.makedirs(file_directory_paths['compressed_dir'])
+if not os.path.exists(directory_paths['compressed_dir']):
+    os.makedirs(directory_paths['compressed_dir'])
 
 # Write the compressed image bit string to the file
 try:
@@ -63,11 +63,11 @@ except Exception as e:
 
 decompressed_image_bit_string = hf.decompress(compressed_image_bit_string)
 
-decompressed_path = file_directory_paths['decompressed_dir'] + 'decompressed_image_' + str(image_number) + '.jpg'
+decompressed_path = directory_paths['decompressed_dir'] + 'decompressed_image_' + str(image_number) + '.jpg'
 
 # Ensure the decompressed images directory exists
-if not os.path.exists(file_directory_paths['decompressed_dir']):
-    os.makedirs(file_directory_paths['decompressed_dir'])
+if not os.path.exists(directory_paths['decompressed_dir']):
+    os.makedirs(directory_paths['decompressed_dir'])
 
 try:
    fh.write_image(decompressed_image_bit_string, decompressed_path)
