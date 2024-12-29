@@ -5,16 +5,34 @@ import matplotlib.image as mpimg
 import os
 
 file_directory_paths = {
-    'image': './images/Image',
+    'image': './images/',
     'decompressed_directory': './decompressed_images/',
     'compressed_directory': './compressed_images/',
     'huffman_codes_directory': './huffman_codes/'
 }
 
-# Get the image number from user input
-image_number = int(input("Enter the image number (0 - 93): "))
+files = [file for file in os.listdir(file_directory_paths['image']) 
+        if os.path.isfile(os.path.join(file_directory_paths['image'], file))]
+
+# Get the number of files in the directory
+num_files = len(files)
+print(num_files)
+while (True):
+    try :
+        #Get the image number from user input
+        image_number = int(input(f"Enter the image number (0 - {num_files - 1}): "))
+    
+        if 0 <= image_number < num_files:
+            break
+        else: 
+            print("Enter a valid number: ")
+    except ValueError as e:
+        print("Enter a valid number: ")
+    
+
+
 # Construct the path to the image file
-image_path = file_directory_paths['image'] + " " + str(image_number) + '.jpg'
+image_path = file_directory_paths['image']+'Image' + " " + str(image_number) + '.jpg'
 
 # Display the original image
 original_image = mpimg.imread(image_path)
@@ -61,13 +79,13 @@ except Exception as e:
 original_image_size = os.path.getsize(image_path)
 compressed_image_size = os.path.getsize(compressed_path)
 decompressed_image_size = os.path.getsize(decompressed_path)
-cr = original_image_size / compressed_image_size
+CR = original_image_size / compressed_image_size
 
-print("Compression Ratio (CR):", cr, "bytes")
+print("Compression Ratio (CR):", CR, "bytes")
 print("Original Image Size:", original_image_size, "bytes")
 print("Compressed Image Size:", compressed_image_size, "bytes")
 print("Decompressed Image Size:", decompressed_image_size, "bytes")
-print("Redundancy:", 1 - (1 / cr))
+print("Redundancy:", 1 - (1 / CR))
 
 # Display the decompressed image
 decompressed_image = mpimg.imread(decompressed_path)
