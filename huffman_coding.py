@@ -1,5 +1,5 @@
 import heapq
-import file_handling
+import file_handling as fh
 import os
 
 class node:
@@ -73,7 +73,7 @@ def compress(image_bit_string, image_number, file_directory_paths):
         os.makedirs(huffman_codes_directory)
 
     # Write the Huffman codes dictionary to the file
-    file_handling.write_dictionary_file(huffman_codes, huffman_codes_directory + 'huffman_codes_' + str(image_number) + '.txt')
+    fh.write_dictionary_file(huffman_codes, huffman_codes_directory + 'huffman_codes_' + str(image_number) + '.txt')
     
     return get_compressed_image(image_bit_string)
 

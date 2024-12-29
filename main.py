@@ -1,5 +1,5 @@
-import file_handling
-import huffman_coding
+import file_handling as fh
+import huffman_coding as hf
 import matplotlib.pyplot as plt
 import matplotlib.image as mpimg
 import os
@@ -20,7 +20,7 @@ while (True):
     try :
         #Get the image number from user input
         image_number = int(input(f"Enter the image number (0 - {num_files - 1}): "))
-    
+
         if 0 <= image_number < num_files:
             break
         else: 
@@ -41,10 +41,10 @@ plt.axis('off')
 plt.show()
 
 # Read the image bit string from the file
-image_bit_string = file_handling.read_image_bit_string(image_path)
+image_bit_string =fh.read_image_bit_string(image_path)
 
 # Compress the image bit string using Huffman coding
-compressed_image_bit_string = huffman_coding.compress(image_bit_string, image_number, file_directory_paths)
+compressed_image_bit_string = hf.compress(image_bit_string, image_number, file_directory_paths)
 
 # Construct the path for the compressed image file
 compressed_path = file_directory_paths['compressed_directory'] + 'compressed_image_' + str(image_number) + '.bin'
@@ -55,13 +55,13 @@ if not os.path.exists(file_directory_paths['compressed_directory']):
 
 # Write the compressed image bit string to the file
 try:
-    file_handling.write_image(compressed_image_bit_string, compressed_path)
+   fh.write_image(compressed_image_bit_string, compressed_path)
 except Exception as e:
     # Print an error message if writing fails
     print(f"Error while writing compressed image: {e}")
 
 
-decompressed_image_bit_string = huffman_coding.decompress(compressed_image_bit_string)
+decompressed_image_bit_string = hf.decompress(compressed_image_bit_string)
 
 decompressed_path = file_directory_paths['decompressed_directory'] + 'decompressed_image_' + str(image_number) + '.jpg'
 
@@ -70,7 +70,7 @@ if not os.path.exists(file_directory_paths['decompressed_directory']):
     os.makedirs(file_directory_paths['decompressed_directory'])
 
 try:
-    file_handling.write_image(decompressed_image_bit_string, decompressed_path)
+   fh.write_image(decompressed_image_bit_string, decompressed_path)
 except Exception as e:
     print(f"Error while writing decompressed image: {e}")
 
