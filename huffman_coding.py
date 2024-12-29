@@ -68,7 +68,7 @@ def compress(image_bit_string, image_number, file_directory_paths):
     calculate_huffman_codes(merged_huffman_tree)
     
     # Ensure the directory for Huffman codes exists
-    huffman_codes_directory = file_directory_paths['huffman_codes_directory']
+    huffman_codes_directory = file_directory_paths['huffman_codes_dir']
     if not os.path.exists(huffman_codes_directory):
         os.makedirs(huffman_codes_directory)
 
