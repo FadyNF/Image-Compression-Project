@@ -16,7 +16,6 @@ files = [file for file in os.listdir(file_directory_paths['image'])
 
 # Get the number of files in the directory
 num_files = len(files)
-print(num_files)
 while (True):
     try :
         #Get the image number from user input
